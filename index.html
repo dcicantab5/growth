@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="author" content="Growth - Mindset Development Tool">
+    <title>Growth - Build an Unbreakable Mindset</title>
+    <meta name="description" content="Build mental resilience with 5 evidence-based habits for an unbreakable mindset">
+    <meta name="keywords" content="mindset, mental resilience, personal growth, habits, Simon Sinek, emotional discipline">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Growth - Build an Unbreakable Mindset">
+    <meta property="og:description" content="5 evidence-based habits to forge mental resilience and build an unbreakable mindset">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Growth - Build an Unbreakable Mindset">
+    <meta property="twitter:description" content="Transform your mindset with proven habits for mental resilience">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='50' x='50' text-anchor='middle' font-size='50'>🧠</text></svg>">
+    
+    <!-- React and Babel for development -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f9fafb;
+            color: #111827;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        #root {
+            min-height: 100vh;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    
+    <script type="text/babel">
+        const { useState } = React;
+
+        // SVG Icon Components
+        const BrainIcon = () => (
+            <svg className="w-10 h-10 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+        );
+
+        const TargetIcon = () => (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+        );
+
+        const ShieldIcon = () => (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+        );
+
+        const HeartIcon = () => (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+            </svg>
+        );
+
+        const StarIcon = () => (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+            </svg>
+        );
+
+        const BookOpenIcon = () => (
+            <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+        );
+
+        const LightbulbIcon = () => (
+            <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+            </svg>
+        );
+
+        const CheckCircleIcon = () => (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+        );
+
+        const GrowthApp = () => {
+            const [selectedHabit, setSelectedHabit] = useState('purpose');
+            const [completedHabits, setCompletedHabits] = useState([]);
+            const [reflectionNotes, setReflectionNotes] = useState('');
+
+            const habits = {
+                purpose: {
+                    title: "Start Your Day with Purpose",
+                    icon: TargetIcon,
+                    color: "blue",
+                    description: "Connect with your deeper why before diving into tasks",
+                    keyQuote: "Before the emails, before the text, before you check the news or scroll through your phone, pause, sit in the stillness and ask yourself one question that very few people dare to ask in the rush of modern life: Why am I doing what?",
+                    insights: [
+                        "Most people live their entire lives without truly answering why they do what they do",
+                        "When we lead with tasks instead of purpose, we confuse movement with meaning",
+                        "Purpose shifts how we do what we do - it brings clarity to chaos, turns tasks into tools",
+                        "Motivation fades, passion fades, but purpose is deeper - it's what keeps you steady when everything is uncertain"
+                    ],
+                    practice: [
+                        "Take five quiet minutes each morning before checking your phone",
+                        "Ask yourself: 'Why am I showing up today? What kind of impact do I want to make?'",
+                        "Filter your tasks through a lens of meaning",
+                        "Ask: 'Does this move me closer to the life I want to live?'"
+                    ],
+                    wisdom: "That small pause could change the entire trajectory of your day. Over time, it could change your life. Because when you begin with purpose, you don't just get more done—you become more of who you were meant to be."
+                },
+                emotional: {
+                    title: "Practice Emotional Discipline",
+                    icon: ShieldIcon,
+                    color: "green",
+                    description: "Learn to respond rather than react in challenging moments",
+                    keyQuote: "Emotional discipline isn't about pretending everything's fine. It's about learning how to respond rather than react. It's about developing the ability to pause in the space between stimulus and response and making a conscious choice rather than a conditioned one.",
+                    insights: [
+                        "Most people go through life on autopilot, allowing external circumstances to dictate their internal state",
+                        "Emotions aren't the enemy—they're messengers trying to tell you something",
+                        "The stronger your vision, the more critical emotional discipline becomes",
+                        "You build mental toughness when you feel weak but keep going anyway"
+                    ],
+                    practice: [
+                        "When triggered, pause and ask: 'What am I really feeling here?'",
+                        "Practice the question: 'Is what I'm about to say aligned with the person I'm trying to become?'",
+                        "Choose curiosity over sarcasm when someone annoys you",
+                        "Give yourself permission to feel disappointment without letting it poison your perspective"
+                    ],
+                    wisdom: "Every time you pause, breathe and choose wisely, you're strengthening a muscle that very few people ever develop. You can meet chaos with clarity, insult with integrity, fear with courage."
+                },
+                discomfort: {
+                    title: "Embrace Discomfort on Purpose",
+                    icon: BrainIcon,
+                    color: "orange",
+                    description: "Seek out small challenges daily to build mental resilience",
+                    keyQuote: "Growth lives on the other side of discomfort, and the people who learn to embrace it on purpose are the ones who rise above the rest. Discomfort isn't the enemy—it's the signal that you're stepping beyond what's familiar.",
+                    insights: [
+                        "Nothing worth having, nothing truly meaningful, is ever built in comfort",
+                        "Discomfort reveals who you really are when things get challenging",
+                        "You don't build mental toughness when you feel strong—you build it when you feel weak but keep going",
+                        "Confidence is born not from success, but from struggle"
+                    ],
+                    practice: [
+                        "Do one thing every day that makes you uncomfortable",
+                        "Wake up earlier than your body wants to",
+                        "Have the hard conversation you've been avoiding",
+                        "Try something new even when you feel unsure"
+                    ],
+                    wisdom: "Each time you do something hard on purpose, you're sending a message to yourself: 'I don't run from difficulty, I rise to it.' Over time, that message becomes your identity."
+                },
+                kindness: {
+                    title: "Speak to Yourself with Kindness",
+                    icon: HeartIcon,
+                    color: "pink",
+                    description: "Transform your inner critic into an inner coach",
+                    keyQuote: "If you spoke to your friends the way you speak to yourself, would they still want to be around you? Most people carry an inner voice that isn't a coach—it's a critic.",
+                    insights: [
+                        "That critical inner voice was trained—it wasn't born with you",
+                        "Your relationship with yourself sets the tone for every other relationship in your life",
+                        "Speaking to yourself with kindness isn't weakness—it's wisdom",
+                        "The words you say to yourself shape your confidence, belief, and resilience"
+                    ],
+                    practice: [
+                        "Notice your internal dialogue, especially when things go wrong",
+                        "Ask: 'Would I say this to a friend?' If no, don't say it to yourself",
+                        "Replace 'I always fail' with 'I'm learning, this is part of the process'",
+                        "Replace 'I'm not enough' with 'I'm still growing, but I have value now'"
+                    ],
+                    wisdom: "When your inner voice becomes a source of encouragement instead of judgment, your entire mindset transforms. You deserve the same level of care you give to those you love."
+                },
+                gratitude: {
+                    title: "End Your Day with Gratitude",
+                    icon: StarIcon,
+                    color: "purple",
+                    description: "Shift from guilt to growth with evening reflection",
+                    keyQuote: "At the end of the day, most people lie in bed replaying everything they didn't do. Guilt creeps in quietly, whispering 'You should have done more.' But gratitude changes everything.",
+                    insights: [
+                        "Guilt is a terrible motivator—it drains energy and keeps you stuck in the past",
+                        "Gratitude doesn't ignore what didn't get done—it doesn't let those things define your day",
+                        "A mindset built on guilt becomes reactive; a mindset rooted in gratitude becomes intentional",
+                        "Grateful people can find meaning in struggle and hold both joy and hardship"
+                    ],
+                    practice: [
+                        "Write down three things that went well each evening",
+                        "Ask yourself: 'What am I proud of today?'",
+                        "Recognize progress, not just perfection",
+                        "Look at your day through the lens of grace"
+                    ],
+                    wisdom: "When you start to close each day with gratitude, you begin to see that progress is happening even if it's not obvious. You stop being at war with yourself and start building a mindset that can't be shaken by setbacks."
+                }
+            };
+
+            const toggleHabitCompletion = (habitKey) => {
+                setCompletedHabits(prev => 
+                    prev.includes(habitKey) 
+                        ? prev.filter(h => h !== habitKey)
+                        : [...prev, habitKey]
+                );
+            };
+
+            const getColorClasses = (color, type = 'text') => {
+                const colors = {
+                    blue: { text: 'text-blue-600', bg: 'bg-blue-50', border: 'border-blue-200', button: 'bg-blue-600 hover:bg-blue-700' },
+                    green: { text: 'text-green-600', bg: 'bg-green-50', border: 'border-green-200', button: 'bg-green-600 hover:bg-green-700' },
+                    orange: { text: 'text-orange-600', bg: 'bg-orange-50', border: 'border-orange-200', button: 'bg-orange-600 hover:bg-orange-700' },
+                    pink: { text: 'text-pink-600', bg: 'bg-pink-50', border: 'border-pink-200', button: 'bg-pink-600 hover:bg-pink-700' },
+                    purple: { text: 'text-purple-600', bg: 'bg-purple-50', border: 'border-purple-200', button: 'bg-purple-600 hover:bg-purple-700' },
+                };
+                return colors[color][type];
+            };
+
+            const selectedHabitData = habits[selectedHabit];
+            const IconComponent = selectedHabitData.icon;
+
+            return (
+                <div className="max-w-6xl mx-auto p-6 bg-white min-h-screen">
+                    {/* Header */}
+                    <div className="mb-8 text-center">
+                        <div className="flex items-center justify-center gap-3 mb-4">
+                            <BrainIcon />
+                            <h1 className="text-4xl font-bold text-gray-800">Growth</h1>
+                        </div>
+                        <p className="text-gray-600 max-w-3xl mx-auto text-lg">
+                            Build an unbreakable mindset with five evidence-based habits. Each practice, when done consistently, 
+                            forges mental resilience in the fire of intention, discipline, and meaning.
+                        </p>
+                    </div>
+
+                    <div className="grid lg:grid-cols-2 gap-8">
+                        {/* Left Side - Habit Selection */}
+                        <div className="space-y-6">
+                            {/* Habit Selector */}
+                            <div className="border border-gray-200 rounded-lg p-6">
+                                <h2 className="text-xl font-semibold mb-4 flex items-center gap-2">
+                                    <BookOpenIcon />
+                                    Select a Habit to Explore
+                                </h2>
+                                
+                                <div className="space-y-3">
+                                    {Object.entries(habits).map(([key, habit]) => {
+                                        const HabitIcon = habit.icon;
+                                        const isSelected = selectedHabit === key;
+                                        const isCompleted = completedHabits.includes(key);
+                                        
+                                        return (
+                                            <div
+                                                key={key}
+                                                onClick={() => setSelectedHabit(key)}
+                                                className={`p-4 rounded-lg border-2 cursor-pointer transition-all ${
+                                                    isSelected 
+                                                        ? `${getColorClasses(habit.color, 'bg')} ${getColorClasses(habit.color, 'border')}` 
+                                                        : 'border-gray-200 hover:border-gray-300'
+                                                }`}
+                                            >
+                                                <div className="flex items-center justify-between">
+                                                    <div className="flex items-center gap-3">
+                                                        <HabitIcon className={`w-5 h-5 ${getColorClasses(habit.color)}`} />
+                                                        <div>
+                                                            <h3 className="font-medium text-gray-800">{habit.title}</h3>
+                                                            <p className="text-sm text-gray-600">{habit.description}</p>
+                                                        </div>
+                                                    </div>
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.stopPropagation();
+                                                            toggleHabitCompletion(key);
+                                                        }}
+                                                        className={`p-1 rounded-full transition-colors ${
+                                                            isCompleted ? 'text-green-600' : 'text-gray-300 hover:text-gray-500'
+                                                        }`}
+                                                    >
+                                                        <CheckCircleIcon />
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+
+                            {/* Progress Tracker */}
+                            <div className="border border-gray-200 rounded-lg p-6">
+                                <h3 className="font-semibold mb-3 flex items-center gap-2">
+                                    <TargetIcon className="w-4 h-4 text-gray-600" />
+                                    Your Progress
+                                </h3>
+                                <div className="space-y-2">
+                                    <div className="flex justify-between text-sm">
+                                        <span>Habits Explored:</span>
+                                        <span className="font-medium">{completedHabits.length}/5</span>
+                                    </div>
+                                    <div className="w-full bg-gray-200 rounded-full h-2">
+                                        <div 
+                                            className="bg-blue-600 h-2 rounded-full transition-all"
+                                            style={{ width: `${(completedHabits.length / 5) * 100}%` }}
+                                        ></div>
+                                    </div>
+                                    <p className="text-xs text-gray-500 mt-2">
+                                        Mark habits as complete as you practice them
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Reflection Notes */}
+                            <div className="border border-gray-200 rounded-lg p-6">
+                                <h3 className="font-semibold mb-3 flex items-center gap-2">
+                                    <LightbulbIcon />
+                                    Personal Reflections
+                                </h3>
+                                <textarea
+                                    value={reflectionNotes}
+                                    onChange={(e) => setReflectionNotes(e.target.value)}
+                                    placeholder="What insights have you gained? How will you apply these habits?"
+                                    className="w-full h-24 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                                />
+                            </div>
+                        </div>
+
+                        {/* Right Side - Habit Details */}
+                        <div className="space-y-6">
+                            {/* Selected Habit Details */}
+                            <div className="border border-gray-200 rounded-lg p-6">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <IconComponent className={`w-6 h-6 ${getColorClasses(selectedHabitData.color)}`} />
+                                    <h2 className="text-2xl font-semibold text-gray-800">{selectedHabitData.title}</h2>
+                                </div>
+
+                                {/* Key Quote */}
+                                <div className={`p-4 rounded-lg border ${getColorClasses(selectedHabitData.color, 'bg')} ${getColorClasses(selectedHabitData.color, 'border')} mb-6`}>
+                                    <blockquote className={`text-sm italic ${getColorClasses(selectedHabitData.color)} leading-relaxed`}>
+                                        "{selectedHabitData.keyQuote}"
+                                    </blockquote>
+                                </div>
+
+                                {/* Key Insights */}
+                                <div className="mb-6">
+                                    <h3 className="font-semibold mb-3 text-gray-800">Key Insights</h3>
+                                    <ul className="space-y-2">
+                                        {selectedHabitData.insights.map((insight, index) => (
+                                            <li key={index} className="flex items-start gap-2">
+                                                <div className={`w-2 h-2 rounded-full ${getColorClasses(selectedHabitData.color, 'text')} mt-2 flex-shrink-0`} style={{backgroundColor: 'currentColor'}}></div>
+                                                <span className="text-sm text-gray-700">{insight}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+
+                                {/* Daily Practice */}
+                                <div className="mb-6">
+                                    <h3 className="font-semibold mb-3 text-gray-800">Daily Practice</h3>
+                                    <div className="space-y-3">
+                                        {selectedHabitData.practice.map((practice, index) => (
+                                            <div key={index} className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg">
+                                                <span className={`text-xs font-bold ${getColorClasses(selectedHabitData.color)} bg-white rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0`}>
+                                                    {index + 1}
+                                                </span>
+                                                <span className="text-sm text-gray-700">{practice}</span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+
+                                {/* Wisdom */}
+                                <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-4 rounded-lg">
+                                    <h3 className="font-semibold mb-2 text-gray-800">Transformative Wisdom</h3>
+                                    <p className="text-sm text-gray-700 italic leading-relaxed">
+                                        "{selectedHabitData.wisdom}"
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Implementation Guide */}
+                            <div className="border border-gray-200 rounded-lg p-6">
+                                <h3 className="font-semibold mb-3 text-gray-800">Implementation Guide</h3>
+                                <div className="space-y-3 text-sm">
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 bg-green-500 rounded-full"></span>
+                                        <span><strong>Start Small:</strong> Begin with 5 minutes daily</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                                        <span><strong>Be Consistent:</strong> Same time, same place when possible</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 bg-purple-500 rounded-full"></span>
+                                        <span><strong>Track Progress:</strong> Notice changes in your mindset</span>
+                                    </div>
+                                    <div className="flex items-center gap-2">
+                                        <span className="w-2 h-2 bg-orange-500 rounded-full"></span>
+                                        <span><strong>Be Patient:</strong> Habits take time to forge</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Quote of Growth */}
+                            <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-lg">
+                                <h3 className="font-semibold mb-2">Remember</h3>
+                                <p className="text-sm italic">
+                                    "An unbreakable mindset isn't born out of comfort—it's forged daily in the fire of intention, 
+                                    discipline and meaning. These five practices will build a mind that doesn't avoid pain or fear 
+                                    but walks straight into it, ready, steady and unshaken."
+                                </p>
+                                <p className="text-xs mt-3 opacity-90">— Simon Sinek</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="mt-12 text-center text-sm text-gray-500">
+                        <p>Build your unbreakable mindset one habit at a time. Consistency creates transformation.</p>
+                    </div>
+                </div>
+            );
+        };
+
+        // Render the app
+        ReactDOM.render(<GrowthApp />, document.getElementById('root'));
+    </script>
+</body>
+</html>
